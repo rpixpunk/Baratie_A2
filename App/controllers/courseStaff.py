@@ -7,11 +7,12 @@ def assign_staff(course_name, staff_name):
 
     if not course or not staff:
         print("Cannot make assignment")
+        return
 
     course_staff = CourseStaff(courseID=course.id, staffID=staff.id)
     db.session.add(course_staff)
     db.session.commit()
-    print("Staff member " + staff_name + "has been assigned to " + course_name)
+    print("Staff member " + staff_name + " has been assigned to " + course_name)
 
 def view_course_staff(course_name):
     course = Course.query.filter_by(name=course_name).first()

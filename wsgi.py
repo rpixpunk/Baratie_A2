@@ -89,18 +89,26 @@ def create_staff_command():
 
 app.cli.add_command(staff_cli)
 
-@app.cli.command('create-course')
+'''
+Course Admin Commands
+'''
+
+course_admin_cli = AppGroup('admin', help='Staff object commands')
+
+@course_admin_cli.command('create-course')
 def create_course_command():
     name = input("Enter course name: ")
     create_course(name)
 
-@app.cli.command('assign-staff')
+@course_admin_cli.command('assign-staff')
 def assign_staff_command():
     course_name = input("Enter course name: ")
     staff_name = input("Enter staff member's name: ")
     assign_staff(course_name, staff_name)
 
-@app.cli.command('view-course-staff')
+@course_admin_cli.command('view-course-staff')
 def view_course_staff_command():
     course_name = input("Enter course name: ")
     view_course_staff(course_name)
+
+app.cli.add_command(course_admin_cli)
