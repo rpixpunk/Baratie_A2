@@ -98,7 +98,8 @@ course_admin_cli = AppGroup('admin', help='Staff object commands')
 @course_admin_cli.command('create-course')
 def create_course_command():
     name = input("Enter course name: ")
-    create_course(name)
+    description = input("Enter course description: ")
+    create_course(name, description)
 
 @course_admin_cli.command('assign-staff')
 def assign_staff_command():
