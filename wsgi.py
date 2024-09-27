@@ -3,9 +3,9 @@ from flask import Flask
 from flask.cli import with_appcontext, AppGroup
 
 from App.database import db, get_migrate
-from App.models import User
+from App.models import User, Staff, Course, CourseStaff
 from App.main import create_app
-from App.controllers import ( create_user, get_all_users_json, get_all_users, initialize )
+from App.controllers import ( create_user, get_all_users_json, get_all_users, initialize, create_staff, create_course, assign_staff, view_course_staff )
 
 
 # This commands file allow you to create convenient CLI commands for testing controllers
@@ -67,3 +67,40 @@ def user_tests_command(type):
     
 
 app.cli.add_command(test)
+
+'''
+Staff Commands
+'''
+
+staff_cli = AppGroup('staff', help='Staff object commands')
+
+@staff_cli.command('create-staff')
+def create_staff_command():
+    roles = {1: "Lecturer", 
+             2: "TA", 
+             3: "Tutor"}
+    role_id = 0
+    
+    name = input("Enter staff member's name: ")
+    while role_id not in (1,2,3):
+        role_id = int(input("Enter role {Lecturer: 1, TA: 2, Tutor: 3}: "))
+    role = roles.get(role_id)
+    create_staff(name, role)
+
+app.cli.add_command(staff_cli)
+
+@app.cli.command('create-course')
+def create_course_command():
+    name = input("Enter course name: ")
+    create_course(name)
+
+@app.cli.command('assign-staff')
+def assign_staff_command():
+    course_name = input("Enter course name: ")
+    staff_name = input("Enter staff member's name: ")
+    assign_staff(course_name, staff_name)
+
+@app.cli.command('view-course-staff')
+def view_course_staff_command():
+    course_name = input("Enter course name: ")
+    view_course_staff(course_name)
