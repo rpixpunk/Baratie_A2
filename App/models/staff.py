@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from App.database import db
 
 class Staff(db.Model):
@@ -8,3 +9,6 @@ class Staff(db.Model):
     def __init__(self, name, role):
         self.name = name
         self.role = role
+=======
+
+>>>>>>> 715743bdaecf43ac01d13ee2776ddbde426e4e37
