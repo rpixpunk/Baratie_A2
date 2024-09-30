@@ -1,5 +1,6 @@
 from App.models import Staff
 from App.database import db
+from sqlalchemy.exc import IntegrityError
 
 def create_staff(name, role):
     staff = Staff(name=name, role=role)
@@ -7,7 +8,7 @@ def create_staff(name, role):
         db.session.add(staff)
         db.session.commit()
     except IntegrityError as e:
-        print("Staff member already exists")
         db.session.rollback()
+        print("Staff member already exists")
     else:
         print(name + " has been created and assigned to " + role)

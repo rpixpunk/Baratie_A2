@@ -1,5 +1,6 @@
 from App.models import Course
 from App.database import db
+from sqlalchemy.exc import IntegrityError
 
 def create_course(name, description):
     course = Course(name=name, description=description)
@@ -9,6 +10,5 @@ def create_course(name, description):
     except IntegrityError as e:
         db.session.rollback()
         print("Course already exists")
-        db.session.rollback()
     else:
         print(name + " has been created")
