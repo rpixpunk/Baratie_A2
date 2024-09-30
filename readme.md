@@ -11,14 +11,14 @@
 $ flask init
 ```
 
+## Creating a Staff Member
+```bash
+$ flask staff create-staff
+```
+
 ## Creating a Course
 ```bash
 $ flask admin create-course
-```
-
-## Creating a Staff Member
-```bash
-$ flask admin create-staff
 ```
 
 ## Assigning a Staff Member to a Course
