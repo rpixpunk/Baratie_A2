@@ -9,6 +9,11 @@ def assign_staff(course_name, staff_name):
         print("Cannot make assignment")
         return
 
+    assigned = CourseStaff.query.filter_by(courseID=course.id, staffID=staff.id).first()
+    if assigned:
+       print("Staff member " + staff_name + " is already assigned to " + course_name) 
+       return
+
     course_staff = CourseStaff(courseID=course.id, staffID=staff.id)
     db.session.add(course_staff)
     db.session.commit()
