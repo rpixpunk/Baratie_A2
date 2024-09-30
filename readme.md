@@ -5,6 +5,32 @@
 
 ![Tests](https://github.com/uwidcit/flaskmvc/actions/workflows/dev.yml/badge.svg)
 
+# Commands for Software Engineering 2 Assignment 1
+## Initializing the Database
+```bash
+$ flask init
+```
+
+## Creating a Course
+```bash
+$ flask admin create-course
+```
+
+## Creating a Staff Member
+```bash
+$ flask admin create-staff
+```
+
+## Assigning a Staff Member to a Course
+```bash
+$ flask admin assign-staff
+```
+
+## Viewing Staff Members Assigned to a Specific Course 
+```bash
+$ flask admin view-course-staff
+```
+
 # Flask MVC Template
 A template for flask applications structured in the Model View Controller pattern [Demo](https://dcit-flaskmvc.herokuapp.com/). [Postman Collection](https://documenter.getpostman.com/view/583570/2s83zcTnEJ)
 
