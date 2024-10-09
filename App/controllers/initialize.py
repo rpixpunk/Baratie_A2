@@ -1,6 +1,5 @@
-from .user import create_course_admin
+from .courseAdmin import create_course_admin
 from App.database import db
-
 
 def initialize():
     db.drop_all()

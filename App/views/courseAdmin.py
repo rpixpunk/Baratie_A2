@@ -9,14 +9,22 @@ from App.controllers import (
     create_staff,
     assign_staff,
     create_course,
+    create_course_admin,
 )
 
 course_admin_views = Blueprint('course_admin_views', __name__, template_folder='../templates')
 
+@course_admin_views.route('/course_admin', methods=['POST'])
+def create_course_admin_action():
+    data = request.json 
+    flash(f"Staff member {data['username']} created!")
+    course_admin = create_course_admin(data['username'], data['password'])
+    return jsonify({'message': f"Course Admin successfully created with id {course_admin.id}"}), 201
+
 @course_admin_required
 @course_admin_views.route('/staff', methods=['POST'])
 def create_staff_action():
-    data = request.json # Return 400 Bad Request status code
+    data = request.json 
     flash(f"Staff member {data['name']} created!")
     staff = create_staff(data['name'], data['role'])
     return jsonify({'message': f"Staff member successfully created with id {staff.id}"}), 201
