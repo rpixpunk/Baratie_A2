@@ -3,7 +3,7 @@ from flask_jwt_extended import create_access_token, current_user, jwt_required, 
 
 from App.models import User, CourseAdmin
 
-def login(username, password):
+def course_admin_login(username, password):
   user = CourseAdmin.query.filter_by(username=username).first()
   if user and user.check_password(password):
     return create_access_token(identity=username)
