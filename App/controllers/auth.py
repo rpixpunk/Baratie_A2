@@ -1,6 +1,7 @@
-from flask_jwt_extended import create_access_token, jwt_required, JWTManager, get_jwt_identity, verify_jwt_in_request
+from functools import wraps
+from flask_jwt_extended import create_access_token, current_user, jwt_required, JWTManager, get_jwt_identity, verify_jwt_in_request
 
-from App.models import User
+from App.models import User, courseAdmin
 
 def login(username, password):
   user = User.query.filter_by(username=username).first()
@@ -42,3 +43,11 @@ def add_auth_context(app):
           is_authenticated = False
           current_user = None
       return dict(is_authenticated=is_authenticated, current_user=current_user)
+
+def course_admin_required(func):
+  @wraps(func)
+  def wrapper(*args, **kwargs):
+      if not current_user.is_authenticated or not isinstance(current_user, courseAdmin):
+          return "Unauthorized", 401
+      return func(*args, **kwargs)
+  return wrapper

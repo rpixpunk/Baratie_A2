@@ -12,3 +12,4 @@ def create_course(name, description):
         print("Course already exists")
     else:
         print(name + " has been created")
+        return course

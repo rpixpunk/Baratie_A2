@@ -17,3 +17,4 @@ def create_staff(name, role):
         print("Staff member already exists")
     else:
         print(name + " has been created and assigned to " + role)
+        return staff

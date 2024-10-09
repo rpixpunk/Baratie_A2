@@ -69,12 +69,12 @@ def user_tests_command(type):
 app.cli.add_command(test)
 
 '''
-Staff Commands
+Course Admin Commands
 '''
 
-staff_cli = AppGroup('staff', help='Staff object commands')
+course_admin_cli = AppGroup('course-admin', help='Course Admin object commands')
 
-@staff_cli.command('create-staff')
+@course_admin_cli.command('create-staff')
 def create_staff_command():
     roles = {1: "Lecturer", 
              2: "TA", 
@@ -86,14 +86,6 @@ def create_staff_command():
         role_id = int(input("Enter role {Lecturer: 1, TA: 2, Tutor: 3}: "))
     role = roles.get(role_id)
     create_staff(name, role)
-
-app.cli.add_command(staff_cli)
-
-'''
-Course Admin Commands
-'''
-
-course_admin_cli = AppGroup('admin', help='Staff object commands')
 
 @course_admin_cli.command('create-course')
 def create_course_command():
