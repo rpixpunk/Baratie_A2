@@ -13,22 +13,22 @@ $ flask init
 
 ## Creating a Staff Member
 ```bash
-$ flask staff create-staff
+$ flask staff create-staff <staff_name>
 ```
 
 ## Creating a Course
 ```bash
-$ flask admin create-course
+$ flask admin create-course <course_name> <description>
 ```
 
 ## Assigning a Staff Member to a Course
 ```bash
-$ flask admin assign-staff
+$ flask admin assign-staff <course_name> <staff_name> 
 ```
 
 ## Viewing Staff Members Assigned to a Specific Course 
 ```bash
-$ flask admin view-course-staff
+$ flask admin view-course-staff <course_name>
 ```
 
 # Flask MVC Template

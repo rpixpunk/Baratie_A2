@@ -8,4 +8,11 @@ class Staff(db.Model):
     def __init__(self, name, role):
         self.name = name
         self.role = role
+
+    def get_json(self):
+        return{
+            'id': self.id,
+            'name': self.name,
+            'role': self.role
+        }
         

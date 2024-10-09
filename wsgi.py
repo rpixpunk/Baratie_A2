@@ -75,33 +75,33 @@ Course Admin Commands
 course_admin_cli = AppGroup('course-admin', help='Course Admin object commands')
 
 @course_admin_cli.command('create-staff')
-def create_staff_command():
+@click.argument("staff_name", default="Jack")
+def create_staff_command(staff_name):
     roles = {1: "Lecturer", 
              2: "TA", 
              3: "Tutor"}
     role_id = 0
     
-    name = input("Enter staff member's name: ")
     while role_id not in (1,2,3):
         role_id = int(input("Enter role {Lecturer: 1, TA: 2, Tutor: 3}: "))
     role = roles.get(role_id)
-    create_staff(name, role)
+    create_staff(staff_name, role)
 
 @course_admin_cli.command('create-course')
-def create_course_command():
-    name = input("Enter course name: ")
-    description = input("Enter course description: ")
+@click.argument("name", default="Maths")
+@click.argument("description", default="Introductory Course")
+def create_course_command(name, description):
     create_course(name, description)
 
 @course_admin_cli.command('assign-staff')
-def assign_staff_command():
-    course_name = input("Enter course name: ")
-    staff_name = input("Enter staff member's name: ")
+@click.argument("course_name", default="Maths")
+@click.argument("staff_name", default="Jack")
+def assign_staff_command(course_name, staff_name):
     assign_staff(course_name, staff_name)
 
 @course_admin_cli.command('view-course-staff')
-def view_course_staff_command():
-    course_name = input("Enter course name: ")
+@click.argument("course_name", default="Maths")
+def view_course_staff_command(course_name):
     view_course_staff(course_name)
 
 app.cli.add_command(course_admin_cli)

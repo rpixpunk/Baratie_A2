@@ -18,6 +18,7 @@ def assign_staff(course_name, staff_name):
     db.session.add(course_staff)
     db.session.commit()
     print("Staff member " + staff_name + " has been assigned to " + course_name)
+    return course_staff
 
 def view_course_staff(course_name):
     course = Course.query.filter_by(name=course_name).first()
@@ -31,6 +32,6 @@ def view_course_staff(course_name):
         print('No staff members are assigned to this course.')
         return
     
-    print(f'Staff for course "{course.name}":')
-    for staff_members in staff:
-        print(f'{staff_members.staff.name} ({staff_members.staff.role})')
+    staff_members = [staff_member.staff.get_json() for staff_member in staff]
+    print(staff_members)
+    return staff_members

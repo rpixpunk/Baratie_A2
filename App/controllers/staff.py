@@ -6,7 +6,7 @@ def create_staff(name, role):
     staff_member = Staff.query.filter_by(name=name, role=role).first()
     if staff_member:
        print("Staff member " + name + " is already assigned to " + role) 
-       return
+       return None
     
     staff = Staff(name=name, role=role)
     try:
