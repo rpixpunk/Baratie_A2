@@ -160,7 +160,7 @@ def user_tests_command(type):
     elif type == "int":
         sys.exit(pytest.main(["-k", "UserIntegrationTests"]))
     else:
-        sys.exit(pytest.main(["-k", "User"]))
+        sys.exit(pytest.main(["-k", "App"]))
 ```
 
 You can then execute all user tests as follows
@@ -169,6 +169,23 @@ You can then execute all user tests as follows
 $ flask test user
 ```
 
+```python
+@test.command("user", help="Run User tests")
+@click.argument("type", default="all")
+def user_tests_command(type):
+    if type == "unit":
+        sys.exit(pytest.main(["-k", "UserUnitTests"]))
+    elif type == "int":
+        sys.exit(pytest.main(["-k", "UserIntegrationTests"]))
+    else:
+        sys.exit(pytest.main(["-k", "CourseAdminUnitTests or CourseAdminIntegrationTests"]))
+```
+
+You can then execute all user tests as follows
+
+```bash
+$ flask test course-admin
+```
 You can also supply "unit" or "int" at the end of the comand to execute only unit or integration tests.
 
 You can run all application tests with the following command
