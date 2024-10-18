@@ -39,27 +39,29 @@ class CourseAdminUnitTests(unittest.TestCase):
             create_course('', "Introductory Course")
 
     def test_assign_staff(self):
-        staff_member = create_staff("John", "TA")
-        course = create_course("Math", "Introductory Course")
-        assignment = assign_staff(staff_member.id, course.id)
-        assert assignment['staff_id'] == staff_member.id
-        assert assignment['course_id'] == course.id
+        staff_member = create_staff("James", "TA")
+        course = create_course("Spanish", "Introductory Course")
+        print(course.name)
+        print(staff_member.name)
+        assignment = assign_staff(course.name, staff_member.name)
+        assert assignment.staffID == staff_member.id
+        assert assignment.courseID == course.id
 
     def test_assign_staff_fail(self):
         # Create a course and a staff member
-        staff_member = create_staff("John", "TA")
-        course = create_course("Math", "Introductory Course")
+        staff_member = create_staff("Jeff", "TA")
+        course = create_course("French", "Introductory Course")
         
         # Try assigning with invalid staff ID 
-        with pytest.raises(ValueError):
+        with pytest.raises(TypeError):
             assign_staff(999, course.id) 
         
         # Try assigning with invalid course ID 
-        with pytest.raises(ValueError):
+        with pytest.raises(TypeError):
             assign_staff(staff_member.id, 999) 
 
         # Try assigning with both invalid staff and course ID
-        with pytest.raises(ValueError):
+        with pytest.raises(TypeError):
             assign_staff(999, 999)  
 
 
