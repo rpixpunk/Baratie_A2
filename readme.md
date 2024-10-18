@@ -5,7 +5,7 @@
 
 ![Tests](https://github.com/uwidcit/flaskmvc/actions/workflows/dev.yml/badge.svg)
 
-# Commands for Software Engineering 2 Assignment 1
+# Commands for Staff Allocation
 ## Initializing the Database
 ```bash
 $ flask init
