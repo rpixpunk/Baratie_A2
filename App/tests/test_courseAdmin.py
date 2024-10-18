@@ -1,12 +1,10 @@
 import os, tempfile, pytest, logging, unittest
-from werkzeug.security import check_password_hash, generate_password_hash
 
 from App.main import create_app
 from App.database import db, create_db
 from App.models import CourseAdmin
 from App.controllers import (
     create_course_admin,
-    get_all_users_json,
     course_admin_login,
     create_staff,
     create_course,
@@ -48,6 +46,10 @@ def empty_db():
 '''
     Integration Tests
 '''
+
+def test_authenticate():
+    user = create_course_admin("bob", "bobpass")
+    assert course_admin_login("bob", "bobpass") != None
 
 class CourseAdminIntegrationTests(unittest.TestCase):
    

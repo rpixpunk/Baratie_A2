@@ -3,7 +3,6 @@ from flask import Flask
 from flask.cli import with_appcontext, AppGroup
 
 from App.database import db, get_migrate
-from App.models import User, Staff, Course, CourseStaff
 from App.main import create_app
 from App.controllers import ( create_user, get_all_users_json, get_all_users, initialize, create_staff, create_course, assign_staff, view_course_staff )
 
@@ -73,7 +72,7 @@ def course_admin_tests_command(type):
     elif type == "int":
         sys.exit(pytest.main(["-k", "CourseAdminIntegrationTests"]))
     else:
-        sys.exit(pytest.main(["-k", "App"]))
+        sys.exit(pytest.main(["-k", "CourseAdminUnitTests or CourseAdminIntegrationTests"]))
 
 app.cli.add_command(test)
 
