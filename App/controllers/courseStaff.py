@@ -7,9 +7,8 @@ def assign_staff(course_name, staff_name):
 
     if not course or not staff:
         print("Cannot make assignment")
-        raise TypeError
         return
-
+        
     assigned = CourseStaff.query.filter_by(courseID=course.id, staffID=staff.id).first()
     if assigned:
        print("Staff member " + staff_name + " is already assigned to " + course_name) 
