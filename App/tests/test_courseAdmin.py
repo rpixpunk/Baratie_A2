@@ -38,7 +38,29 @@ class CourseAdminUnitTests(unittest.TestCase):
         with pytest.raises(ValueError):
             create_course('', "Introductory Course")
 
-    #def test_assign_staff(self):
+    def test_assign_staff(self):
+        staff_member = create_staff("John", "TA")
+        course = create_course("Math", "Introductory Course")
+        assignment = assign_staff(staff_member.id, course.id)
+        assert assignment['staff_id'] == staff_member.id
+        assert assignment['course_id'] == course.id
+
+    def test_assign_staff_fail(self):
+        # Create a course and a staff member
+        staff_member = create_staff("John", "TA")
+        course = create_course("Math", "Introductory Course")
+        
+        # Try assigning with invalid staff ID 
+        with pytest.raises(ValueError):
+            assign_staff(999, course.id) 
+        
+        # Try assigning with invalid course ID 
+        with pytest.raises(ValueError):
+            assign_staff(staff_member.id, 999) 
+
+        # Try assigning with both invalid staff and course ID
+        with pytest.raises(ValueError):
+            assign_staff(999, 999)  
 
 
 @pytest.fixture(autouse=True, scope="module")
@@ -51,3 +73,28 @@ def empty_db():
 '''
     Integration Tests
 '''
+
+class CourseAdminIntegrationTests(unittest.TestCase):
+    def test_create_and_assign_staff_to_course(self):
+
+
+        client = self.app.test_client()
+        response = client.post('/create-staff', json={'name': 'John', 'role': 'TA'})
+        assert response.status_code == 200
+        staff_id = response.json['id']
+        
+        response = client.post('/create-course', json={'name': 'Math', 'description': 'Introductory Course'})
+        assert response.status_code == 200
+        course_id = response.json['id']
+        
+
+        response = client.post(f'/assign-staff', json={'staff_id': staff_id, 'course_id': course_id})
+        assert response.status_code == 200
+        assert response.json['staff_id'] == staff_id
+        assert response.json['course_id'] == course_id
+        
+
+        response = client.get(f'/course/{course_id}/staff')
+        assert response.status_code == 200
+        assert len(response.json['staff']) > 0
+        assert response.json['staff'][0]['id'] == staff_id
